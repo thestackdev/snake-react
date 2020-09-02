@@ -1,0 +1,19 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  height: fit-content;
+  width: fit-content;
+  justify-content: center;
+  align-items: center;
+}
+
+button {
+  font-size: 1.2rem;
+  padding: 9px;
+  margin: 9px;
+  width: fit-content
+}
+
+canvas {
+  border: 5px solid grey;
+}
