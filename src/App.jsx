@@ -21,7 +21,7 @@ export const App = () => {
     snake.forEach((piece) => context.fillRect(piece[0], piece[1], 1, 1));
     context.fillStyle = "red";
     context.fillRect(food[0], food[1], 1, 1);
-  }, [snake]);
+  }, [snake, food]);
 
   const checkIfDeath = (snakeHead) => {
     if (
@@ -60,6 +60,10 @@ export const App = () => {
     }
   }, speed);
 
+  const handleSpeed = () => {
+    updateSpeed((prev) => (prev ? 0 : SPEED));
+  };
+
   const handleKeys = ({ keyCode }) => {
     switch (keyCode) {
       case 37:
@@ -75,7 +79,7 @@ export const App = () => {
         if (direction[1] !== -1) updateDirection(DIRECTIONS[keyCode]);
         break;
       case 32:
-        updateSpeed((prev) => (prev ? 0 : SPEED));
+        handleSpeed();
         break;
       default:
         break;
@@ -83,13 +87,18 @@ export const App = () => {
   };
 
   const handleButtonClick = (event) => {
-    const textValue = event.target.innerHTML;
-    if (textValue === "Play Game" || textValue === "Resume Game") {
-      updateSpeed(SPEED);
-      updateButtonText("Pause Game");
-    } else if (textValue === "Pause Game") {
-      updateSpeed(0);
-      updateButtonText("Resume Game");
+    switch (event.target.innerHTML) {
+      case "Play Game":
+      case "Resume Game":
+        handleSpeed();
+        updateButtonText("Pause Game");
+        break;
+      case "Pause Game":
+        handleSpeed();
+        updateButtonText("Resume Game");
+        break;
+      default:
+        break;
     }
   };
 
